@@ -189,23 +189,25 @@ export const OrderTotal = styled.div`
     align-items: center;
     gap: .25rem;
     width: 4.5rem;
-    padding: .5rem;
     margin-right: .5rem;
     border-radius: 6px;
-    line-height: 1.6;
+    height: 2rem;
+    padding: .5rem;
 
     span {
+        display: inline-block;
         font-weight: 700;
+        font-size: 1rem;
+        color: ${props => props.theme.text};
     }
 
     background: ${props => props.theme.button};
 
     button {
         all: unset;
-        font-size: 1.2rem;
+        font-size: 1rem;
         cursor: pointer;
         color: ${props => props.theme.purple};
-
     }
 `
 
