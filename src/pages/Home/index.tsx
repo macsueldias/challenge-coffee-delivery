@@ -1,9 +1,10 @@
-import { CategoryProduct, ContainerBanner, ContainerProducts, DescriptionProduct, DescriptionServices, FooterProduct, IlustrationProduct, ImageProduct, InfoHeader, ItemProduct, ItemService, ListProducts, NameProduct, OrderClosing, OrderTotal, TitleMain, TitleProduct, ValueProduct } from "./styles"
-import { ShoppingCart, ClockCountdown, Package, Coffee, Minus, Plus } from '@phosphor-icons/react'
+import { ContainerBanner, ContainerProducts, DescriptionServices,  IlustrationProduct, InfoHeader, ItemService, ListProducts, Title, TitleMain } from "./styles"
+import { ShoppingCart, ClockCountdown, Package, Coffee } from '@phosphor-icons/react'
 
 import ilustration from '../../assets/Ilustration-coffee.svg'
 
 import { data } from '../../data/products'
+import { Product } from "../../components/Product"
 
 
 
@@ -23,52 +24,27 @@ export const Home = () => {
                             <span><ShoppingCart size={16} weight="fill" /></span>Compra simples e segura
                         </ItemService>
                         <ItemService serviceColor="yellow">
-                            <span><ClockCountdown size={16} weight="fill" /></span>Compra simples e segura
+                            <span><ClockCountdown size={16} weight="fill" /></span>Entrega rápida e rastreada
                         </ItemService>
                         <ItemService serviceColor="gray">
-                            <span><Package size={16} weight="fill" /></span>Compra simples e segura
+                            <span><Package size={16} weight="fill" /></span>Embalagem mantém o café intacto
                         </ItemService>
                         <ItemService serviceColor="purple">
-                            <span><Coffee size={16} weight="fill" /></span>Compra simples e segura
+                            <span><Coffee size={16} weight="fill" /></span>O café chega fresquinho até você
                         </ItemService>
                     </DescriptionServices>
                 </InfoHeader>
                 <IlustrationProduct src={ilustration} alt="" />
             </ContainerBanner>
             <ContainerProducts>
-                <TitleProduct>
+                <Title titleColor="subtitle">
                     Nossos cafés
-                </TitleProduct>
+                </Title>
                 <ListProducts>
                     {data.map((product) => {
                         return (
-                            <ItemProduct>
-                                <ImageProduct>
-                                    <img src={`../../src/assets/coffees/${product.image}`} alt="" />
-                                </ImageProduct>
-                                    <CategoryProduct>
-                                        {product.categories.map((category) => {
-                                            return (
-                                                <span>{category}</span>
-                                            )
-                                        })}
-                                    </CategoryProduct>
-                                    <NameProduct>{product.name}</NameProduct>
-                                    <DescriptionProduct>{product.description}</DescriptionProduct>
-                                    <FooterProduct>
-                                        <ValueProduct>
-                                            R$ <span>{product.price}</span>
-                                        </ValueProduct>
-                                        <OrderTotal>
-                                            <button><Minus size={16} weight="bold" color="#4B2995" /></button>
-                                            <span>{product.amount}</span>
-                                            <button><Plus size={16} weight="bold" color="#4B2995" /></button>
-                                        </OrderTotal>
-                                        <OrderClosing>
-                                            <ShoppingCart size={16} weight="fill" />
-                                        </OrderClosing>
-                                    </FooterProduct>  
-                            </ItemProduct>
+                            <Product key={product.id} {...product}
+                            />
                         )
                     })}
                 </ListProducts>

@@ -5,6 +5,10 @@ export const ContainerHeader = styled.div`
     justify-content: space-between;
     width: 100%;
     margin: 2rem 10rem;
+
+    @media (max-width: 540px) {
+        padding: 1rem;
+    }
 `
 
 export const ContentInfo = styled.span`

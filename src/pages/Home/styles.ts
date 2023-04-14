@@ -6,7 +6,12 @@ export const ContainerBanner = styled.div`
     gap: 4.5rem;
     width: 100%;
     height: 24rem;
-    margin: 2rem 10rem 6rem;
+    margin: 2rem 10rem 0;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        min-height: 40rem;
+    }
 `
 
 export const InfoHeader = styled.div`
@@ -17,7 +22,7 @@ export const InfoHeader = styled.div`
 `
 
 export const TitleMain = styled.h1`
-    width: 588px;
+    width: 36rem;
 
     font-size: 3rem;
     font-weight: 800;
@@ -35,6 +40,11 @@ export const TitleMain = styled.h1`
         font-family: 'Roboto';
         line-height: 2;
     }
+
+    @media (max-width: 768px) {
+        font-size: 1.75rem;
+        width: 22rem;
+    }
 `
 
 export const DescriptionServices = styled.ul`
@@ -43,6 +53,10 @@ export const DescriptionServices = styled.ul`
     width: 34rem;
     flex-wrap: wrap;
     gap: 1.25rem;
+
+    @media (max-width: 768px) {
+        width: 22rem;
+    }
 `
 
 const SERVICES_COLORS = {
@@ -74,10 +88,17 @@ export const ItemService = styled.li<ServicesProps>`
         background: ${props => props.theme[SERVICES_COLORS[props.serviceColor]]};
         color: ${props => props.theme["white"]};
     }
+
+    @media (max-width: 768px) {
+        width: 10rem;
+        font-size: .875rem;
+    }
 `
 
 export const IlustrationProduct = styled.img`
-
+    @media (max-width: 768px) {
+        width: 22rem;
+    }
 `
 
 export const ContainerProducts = styled.div`
@@ -86,12 +107,29 @@ export const ContainerProducts = styled.div`
     width: 100%;
 `
 
-export const TitleProduct = styled.h3`
+const TITLE_COLORS = {
+    yellowDark: 'yellow-dark',
+    yellow: 'yellow',
+    text: 'text',
+    subtitle: 'subtitle',
+
+} as const
+
+interface TitleProps {
+    titleColor: keyof typeof TITLE_COLORS
+}
+
+export const Title = styled.h3<TitleProps>`
     font-family: 'Baloo 2';
     font-size: 2rem;
     text-align: left;
+    margin-top: 5rem;
 
-    color: ${props => props.theme.subtitle};
+    color: ${props => props.theme[TITLE_COLORS[props.titleColor]]};
+
+    @media (max-width: 768px) {
+        text-align: center;
+    }
 `
 
 export const ListProducts = styled.ul`
@@ -99,116 +137,9 @@ export const ListProducts = styled.ul`
     flex-wrap: wrap;
     gap: 2rem;
     margin-top: 4rem;
-`
 
-export const ItemProduct = styled.li`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 16rem;
-
-    margin-bottom: 1.25rem;
-    border-radius: 6px 36px;
-    padding-bottom: 1.25rem;
-
-    background: ${props => props.theme.card};
-    
-
-`
-export const ImageProduct = styled.div`
-    position: relative;
-    height: 6.25rem;
-
-    img {
-        position: absolute;
-        top: -20px;
-        left: calc((100% - 120px) / 2);
-        width: 7.5rem;
-    }
-
-`
-
-export const CategoryProduct = styled.div`
-    margin-top: .75rem;
-
-    span {
-        padding: .25rem .5rem;
-        border-radius: 100px;
-        
-        font-weight: 700;
-        font-size: .625rem;
-
-        
-        color: ${props => props.theme["yellow-dark"]};
-        background: ${props => props.theme["yellow-light"]};
+    @media(max-width: 540px) {
+        gap: 1rem;
+        justify-content: center;
     }
 `
-
-export const NameProduct = styled.h4`
-    margin: 1rem 1.25rem .875rem;
-
-    color: ${props => props.theme.subtitle};
-
-    font-family: 'Baloo 2';
-    font-size: 1.25rem;
-    font-weight: 700;
-`
-
-export const DescriptionProduct = styled.p`
-    margin: 0 1.25rem;
-
-    color: ${props => props.theme.label};
-    
-    font-size: .875rem;
-    text-align: center;
-    line-height: 1.8;
-
-`
-
-export const FooterProduct = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-`
-
-export const ValueProduct = styled.div`
-    margin-right: 1.5rem;
-    color: ${props => props.theme.text};
-    font-size: .875rem;
-
-    span {
-        font-family: 'baloo 2';
-        font-size: 1.5rem;
-    }
-`
-
-export const OrderTotal = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: .25rem;
-    width: 4.5rem;
-    margin-right: .5rem;
-    border-radius: 6px;
-    height: 2rem;
-    padding: .5rem;
-
-    span {
-        display: inline-block;
-        font-weight: 700;
-        font-size: 1rem;
-        color: ${props => props.theme.text};
-    }
-
-    background: ${props => props.theme.button};
-
-    button {
-        all: unset;
-        font-size: 1rem;
-        cursor: pointer;
-        color: ${props => props.theme.purple};
-    }
-`
-
-export const OrderClosing = styled.div``
