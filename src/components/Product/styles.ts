@@ -33,12 +33,12 @@ export const CategoryProduct = styled.div`
     margin-top: .75rem;
 
     span {
+        margin-inline: 0.25rem;
         padding: .25rem .5rem;
         border-radius: 100px;
         
         font-weight: 700;
         font-size: .625rem;
-
         
         color: ${props => props.theme["yellow-dark"]};
         background: ${props => props.theme["yellow-light"]};
@@ -104,9 +104,9 @@ export const OrderTotal = styled.div`
     align-items: center;
     gap: .25rem;
     width: 4.5rem;
+    height: 2.25rem;
     margin-right: .5rem;
     border-radius: 6px;
-    height: 2rem;
     padding: .5rem;
 
     span {
@@ -139,4 +139,18 @@ export const OrderTotal = styled.div`
     }
 `
 
-export const OrderClosing = styled.div``
+export const OrderClosing = styled.div`
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    
+    background: ${props => props.theme["purple-dark"]};
+
+    svg {
+        color: ${props => props.theme.white}
+    }
+
+`
