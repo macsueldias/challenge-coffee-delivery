@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
+import { OrderProductsCart } from '../utils/orderProductsCart'
 
 interface CategoryProps {
     id: string
@@ -42,9 +43,9 @@ export function CartProvider({children}: CardProviderProps) {
     const addProductCart = (product: ProductProps, amount: number) => {
         const listOfOtherProducts = cart.filter((item) => item.id !== product.id)
         if(cart.includes(product) || amount !== 1) {
-            setCart([...listOfOtherProducts, {...product, amount}])
+            setCart([...listOfOtherProducts, {...product, amount}].sort(OrderProductsCart))
         } else {
-            setCart((state) => [...state, product])
+            setCart((state) => [...state, product].sort(OrderProductsCart))
         }
     }
 
@@ -52,7 +53,7 @@ export function CartProvider({children}: CardProviderProps) {
         const listOfOtherProducts = cart.filter((item) => item.id !== id)
         const product = cart.filter((item) => item.id === id)
         if (amount > 0) {
-            setCart([...listOfOtherProducts, {...product[0], amount: amount}])
+            setCart([...listOfOtherProducts, {...product[0], amount: amount}].sort(OrderProductsCart))
         }else {
             setCart(cart.filter((product) => product.id !== id))
         }
