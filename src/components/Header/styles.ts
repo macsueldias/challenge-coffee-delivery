@@ -36,14 +36,34 @@ export const Location = styled.span`
     color: ${props => props.theme["purple-dark"]};
 `
 
-export const Cart = styled.span`
+export const Cart = styled.div`
+    position: relative;
     display: flex;
-    padding: .5rem;
+    justify-content: center;
+    align-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 6px;
 
     font-size: 0.875rem;
 
     background: ${props => props.theme["yellow-light"]};
+
+    span {
+        position: absolute;
+        top: -.475rem;
+        right: -.475rem;
+        width: 1.125rem;
+        height: 1.125rem;
+        background: ${props => props.theme["yellow-dark"]};
+        border-radius: 50%;
+        color: ${props => props.theme.white};
+        font-weight: 700;
+        font-size: 0.75rem;
+        line-height: 1.6;
+        text-align: center;
+
+    }
 `
 
 

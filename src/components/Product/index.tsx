@@ -1,5 +1,7 @@
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react"
 import { CategoryProduct, DescriptionProduct, FooterProduct, ImageProduct, ItemProduct, NameProduct, OrderClosing, OrderTotal, ValueProduct } from "./styles"
+import { useCart } from "../../hooks/useCart"
+import { useState } from "react"
 
 interface CategoryProps {
     id: string
@@ -16,32 +18,43 @@ interface ProductProps {
     amount: number
 }
 
-export const Product = ({name, image, description, price, amount, categories}: ProductProps) => {
+export const Product = (product : ProductProps) => {
+    const [amount, setAmount] = useState(0)
+
+    const  {addProductCart} = useCart()
+
+    function handleIncrement() {
+        setAmount(amount + 1)
+    }
+    
+    function handleDecrement() {
+        setAmount(amount - 1)
+    }
     
     return (
         <ItemProduct>
             <ImageProduct>
-                <img src={`../../src/assets/coffees/${image}`} alt="" />
+                <img src={`../../src/assets/coffees/${product.image}`} alt="" />
             </ImageProduct>
                 <CategoryProduct>
-                    {categories.map((category) => {
+                    {product.categories.map((category) => {
                         return (
                             <span key={category.id}>{category.title}</span>
                         )
                     })}
                 </CategoryProduct>
-                <NameProduct>{name}</NameProduct>
-                <DescriptionProduct>{description}</DescriptionProduct>
+                <NameProduct>{product.name}</NameProduct>
+                <DescriptionProduct>{product.description}</DescriptionProduct>
                 <FooterProduct>
                     <ValueProduct>
-                        R$ <span>{price}</span>
+                        R$ <span>{product.price}</span>
                     </ValueProduct>
                     <OrderTotal>
-                        <button><Minus size={16} weight="bold" color="#4B2995" /></button>
+                        <button onClick={handleDecrement}><Minus size={16} weight="bold" color="#4B2995" /></button>
                         <span>{amount}</span>
-                        <button><Plus size={16} weight="bold" color="#4B2995" /></button>
+                        <button onClick={handleIncrement}><Plus size={16} weight="bold" color="#4B2995" /></button>
                     </OrderTotal>
-                    <OrderClosing>
+                    <OrderClosing onClick={() => addProductCart(product, amount)}>
                         <ShoppingCart size={16} weight="fill" />
                     </OrderClosing>
                 </FooterProduct>  

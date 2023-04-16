@@ -1,10 +1,12 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from "@phosphor-icons/react"
-import { ActionOrder, Button, ButtonConfirm, ContainerCheckout, Form, InfoLocation, InfoProduct, Input, InputGroup, Label, Legend, PaymentTypeButtonGroup, ProductCart, Separator, Table } from "./styles"
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money,  } from "@phosphor-icons/react"
+import { Button, ButtonConfirm, ContainerCheckout, Form, InfoLocation, InfoProduct, Input, InputGroup, Label, Legend, PaymentTypeButtonGroup, Table } from "./styles"
 
-import coffe from '../../assets/coffees/Coffee-3.png'
-import { OrderTotal } from "../../components/Product/styles"
+import { useCart } from "../../hooks/useCart"
+import { ProductCart } from "../../components/ProductCart"
 
 export const Checkout = () => {
+    const { cart, totalCart, delivery } = useCart()
+
     return (
         <ContainerCheckout>
             <Form>
@@ -35,57 +37,26 @@ export const Checkout = () => {
                 <InfoProduct>
                     <Legend>Cafés selecionados</Legend>
                     <InputGroup>
-                        <ProductCart>
-                            <img src={coffe} alt="" />
-                            <div>
-                                <p>Expresso Tradicional</p>
-                                <ActionOrder>
-                                    <OrderTotal>
-                                        <button><Minus size={16} weight="regular" color="#4B2995" /></button>
-                                            <span>1</span>
-                                        <button><Plus size={16} weight="regular" color="#4B2995" /></button>
-                                    </OrderTotal>
-                                    <Button variant="small"><Trash size={16} weight="regular" /> Remover</Button>
-                                </ActionOrder>
-                            </div>
-                            <p>
-                                R$ <span>9.90</span>
-                            </p>
-                        </ProductCart>
-                        <Separator />
-                        <ProductCart>
-                            <img src={coffe} alt="" />
-                            <div>
-                                <p>Expresso Tradicional</p>
-                                <ActionOrder>
-                                    <OrderTotal>
-                                        <button><Minus size={16} weight="regular" color="#4B2995" /></button>
-                                            <span>1</span>
-                                        <button><Plus size={16} weight="regular" color="#4B2995" /></button>
-                                    </OrderTotal>
-                                    <Button variant="small"><Trash size={16} weight="regular" /> Remover</Button>
-                                </ActionOrder>
-                            </div>
-                            <p>
-                                R$ <span>9.90</span>
-                            </p>
-                        </ProductCart>
-                        <Separator />
+                        {cart.map((item) => {
+                            return (
+                                <ProductCart {...item} key={item.id} />
+                            )
+                        })}
                         <Table>
                             <tbody>
                                 <tr>
                                     <td>Total de itens</td>
-                                    <td>R$ <span>29,70</span></td>
+                                    <td>R$ <span>{totalCart.value.toFixed(2)}</span></td>
                                 </tr>
                                 <tr>
                                     <td>Entrega</td>
-                                    <td>R$ <span>3,50</span></td>
+                                    <td>R$ <span>{delivery()}</span></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Total</th>
-                                    <th>R$<span>33,20</span></th>
+                                    <th>R$<span>{(delivery() + totalCart.value).toFixed(2)}</span></th>
                                 </tr>
                             </tfoot>
                         </Table>
