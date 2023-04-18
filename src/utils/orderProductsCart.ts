@@ -13,12 +13,12 @@ interface ProductProps {
   amount: number
 }
 
-export function OrderProductsCart (itemA: ProductProps , itemB:ProductProps) {
+export function OrderProductsCart(itemA: ProductProps, itemB: ProductProps) {
   if (itemA.name > itemB.name) {
-    return 1;
+    return 1
   }
   if (itemA.name < itemB.name) {
-    return -1;
+    return -1
   }
-  return 0;
+  return 0
 }
