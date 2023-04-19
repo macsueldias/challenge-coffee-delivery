@@ -21,20 +21,7 @@ import { ProductCart } from '../../components/ProductCart'
 import { z } from 'zod'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-
-interface AddressProps {
-  bairro?: string
-  cep?: string
-  complemento?: string
-  ddd?: string
-  gia?: string
-  ibge?: string
-  localidade?: string
-  logradouro?: string
-  siafi?: string
-  uf?: string
-}
+import { useNavigate } from 'react-router-dom'
 
 const checkoutFormSchema = z.object({
   cep: z.string(),
@@ -51,45 +38,36 @@ type CheckoutFormData = z.infer<typeof checkoutFormSchema>
 
 export const Checkout = () => {
   const { cart, totalCart, delivery, EntryOrder } = useCart()
-  const [address, setAddress] = useState<AddressProps>({
-    bairro: '',
-    cep: '',
-    complemento: '',
-    ddd: '',
-    gia: '',
-    ibge: '',
-    localidade: '',
-    logradouro: '',
-    siafi: '',
-    uf: '',
-  })
 
-  const { register, handleSubmit, control, watch, reset } =
+  const navigate = useNavigate()
+
+  const { register, handleSubmit, control, setValue } =
     useForm<CheckoutFormData>({
       resolver: zodResolver(checkoutFormSchema),
     })
 
-  function handleCheckout(data: any) {
+  async function handleCheckout(data: CheckoutFormData) {
     try {
-      EntryOrder(data)
-      window.location.href = '/success'
+      const response = await EntryOrder(data)
+      if (response) {
+        navigate('/success')
+      }
     } catch (error) {
       console.log('Verificar se os dados foram preenchido corretamente')
     }
-    reset()
   }
 
-  const payment = watch('payment')
-
   async function handleSearchAddress(cep: string) {
-    if (!payment) {
-      await axios
-        .get(`https://viacep.com.br/ws/${cep}/json/`)
-        .then((response) => {
-          const { data } = response
-          setAddress(data)
-        })
-    }
+    await axios
+      .get(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => {
+        const { data } = response
+
+        setValue('neighborhood', data.bairro)
+        setValue('street', data.logradouro)
+        setValue('uf', data.uf)
+        setValue('city', data.localidade)
+      })
   }
 
   return (
@@ -109,29 +87,20 @@ export const Checkout = () => {
               placeholder="CEP"
               {...register('cep')}
               onBlur={(e) => handleSearchAddress(e.target.value)}
+              required
             />
-            <Input
-              variant="larger"
-              placeholder="Rua"
-              value={address?.logradouro}
-              {...register('street')}
-            />
+            <Input variant="larger" placeholder="Rua" {...register('street')} />
             <Input
               variant="small"
               type="number"
               placeholder="Número"
               {...register('number', { valueAsNumber: true })}
+              required
             />
-            <Input
-              variant="small"
-              placeholder="UF"
-              value={address?.uf}
-              {...register('uf')}
-            />
+            <Input variant="small" placeholder="UF" {...register('uf')} />
             <Input
               variant="medium"
               placeholder="Bairro"
-              value={address?.bairro}
               {...register('neighborhood')}
             />
             <Input
@@ -142,7 +111,6 @@ export const Checkout = () => {
             <Input
               variant="medium"
               placeholder="Cidade"
-              value={address?.localidade}
               {...register('city')}
             />
           </InputGroup>

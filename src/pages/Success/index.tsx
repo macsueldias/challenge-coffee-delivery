@@ -49,7 +49,7 @@ export const Success = () => {
                 {' '}
                 Pagamento na entrega{' '}
                 <span>
-                  <b>Cartão de Crédito</b>
+                  <b>{order.payment}</b>
                 </span>
               </Label>
             </div>

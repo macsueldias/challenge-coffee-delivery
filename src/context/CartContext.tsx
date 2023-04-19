@@ -24,11 +24,11 @@ interface AmountCartProps {
 interface OrderProps {
   cep: string
   street: string
-  number: number
-  uf: string
   complement: string
   neighborhood: string
   city: string
+  uf: string
+  number: number
   payment: string
 }
 
@@ -36,7 +36,7 @@ interface ProductContextProps {
   cart: ProductProps[]
   totalCart: AmountCartProps
   order: OrderProps
-  EntryOrder: (order: OrderProps) => void
+  EntryOrder: (order: OrderProps) => Promise<boolean>
   addProductCart: (product: ProductProps, amount: number) => void
   removeProductCart: (id: string, amount: number) => void
   delivery: () => number
@@ -57,17 +57,24 @@ export function CartProvider({ children }: CardProviderProps) {
   const [order, setOrder] = useState<OrderProps>({
     cep: '',
     street: '',
-    number: 0,
-    uf: '',
     complement: '',
     neighborhood: '',
     city: '',
+    uf: '',
+    number: 0,
     payment: '',
   })
 
-  const EntryOrder = (order: OrderProps) => {
-    setOrder(order)
+  const EntryOrder = async (order: OrderProps) => {
+    try {
+      setOrder(order)
+    } catch (error) {
+      console.log('Endereço não foi salvo')
+    }
+    return true
   }
+
+  console.log(order)
 
   const addProductCart = (product: ProductProps, amount: number) => {
     const listOfOtherProducts = cart.filter((item) => item.id !== product.id)
