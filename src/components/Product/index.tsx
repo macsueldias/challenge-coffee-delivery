@@ -46,7 +46,7 @@ export const Product = (product: ProductProps) => {
   return (
     <ItemProduct>
       <ImageProduct>
-        <img src={`../../src/assets/coffees/${product.image}`} alt="" />
+        <img src={`../../assets/coffees/${product.image}`} alt="" />
       </ImageProduct>
       <CategoryProduct>
         {product.categories.map((category) => {
