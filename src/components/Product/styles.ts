@@ -145,6 +145,7 @@ export const OrderClosing = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 6px;
+  cursor: pointer;
 
   background: ${(props) => props.theme['purple-dark']};
 

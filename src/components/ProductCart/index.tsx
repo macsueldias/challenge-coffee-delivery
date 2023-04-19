@@ -52,7 +52,11 @@ export const ProductCart = (itemprod: ProductProps) => {
               <Plus size={16} weight="regular" color="#4B2995" />
             </button>
           </OrderTotal>
-          <Button variant="small">
+          <Button
+            type="button"
+            onClick={() => removeProductCart(itemprod.id, 0)}
+            variant="small"
+          >
             <Trash size={16} weight="regular" /> Remover
           </Button>
         </ActionOrder>

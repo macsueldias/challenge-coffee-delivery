@@ -74,8 +74,6 @@ export function CartProvider({ children }: CardProviderProps) {
     return true
   }
 
-  console.log(order)
-
   const addProductCart = (product: ProductProps, amount: number) => {
     const listOfOtherProducts = cart.filter((item) => item.id !== product.id)
     if (cart.includes(product) || amount !== 1) {
