@@ -60,7 +60,7 @@ export const Product = (product: ProductProps) => {
 
       <FooterProduct>
         <ValueProduct>
-          R$ <span>{product.price}</span>
+          R$ <span>{product.price.toFixed(2)}</span>
         </ValueProduct>
 
         <OrderTotal>
