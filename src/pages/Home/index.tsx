@@ -17,7 +17,7 @@ import {
   TitleMain,
 } from './styles'
 
-import ilustration from '../../../src/assets/Ilustration-coffee.svg'
+import ilustration from 'images/ilustration-coffee.svg'
 import { data } from '../../data/products'
 
 import { Product } from '../../components/Product'

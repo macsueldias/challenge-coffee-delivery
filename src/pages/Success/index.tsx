@@ -8,7 +8,7 @@ import {
 } from './styles'
 import { Title } from '../Home/styles'
 import { Label } from '../Checkout/styles'
-import illustration from '../../../src/assets/illustration.png'
+import illustration from 'images/illustration.png'
 
 import { useCart } from '../../hooks/useCart'
 

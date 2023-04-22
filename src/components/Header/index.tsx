@@ -8,7 +8,7 @@ import {
   ImageLogo,
   Location,
 } from './styles'
-import Logo from '../../../src/assets/logo.svg'
+import Logo from 'images/logo.svg'
 
 import { useCart } from '../../hooks/useCart'
 
