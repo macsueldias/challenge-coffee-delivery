@@ -55,7 +55,7 @@ interface CardProviderProps {
 export const CartContext = createContext({} as ProductContextProps)
 
 export function CartProvider({ children }: CardProviderProps) {
-  const [cart, dispatch] = useReducer(cartReducer, [], () => {
+  const [cart, dispatch] = useReducer(cartReducer, [], (initialState) => {
     const storedStateAsJSON = localStorage.getItem(
       '@coffed-delivery:cart-1.0.0',
     )
@@ -63,6 +63,7 @@ export function CartProvider({ children }: CardProviderProps) {
     if (storedStateAsJSON) {
       return JSON.parse(storedStateAsJSON)
     }
+    return initialState
   })
 
   useEffect(() => {
@@ -120,8 +121,6 @@ export function CartProvider({ children }: CardProviderProps) {
       dispatch(removeProductCartReducer([...listOfOtherProducts]))
     }
   }
-
-  console.log(cart)
 
   const delivery = () => {
     if (totalCart.value === 0) {
