@@ -17,7 +17,6 @@ import {
   TitleMain,
 } from './styles'
 
-import ilustration from 'images/ilustration-coffee.svg'
 import { data } from '../../data/products'
 
 import { Product } from '../../components/Product'
@@ -63,7 +62,7 @@ export const Home = () => {
           </DescriptionServices>
         </InfoHeader>
 
-        <IlustrationProduct src={ilustration} alt="" />
+        <IlustrationProduct src="images/ilustration-coffee.svg" alt="" />
       </ContainerBanner>
       <ContainerProducts>
         <Title titleColor="subtitle">Nossos cafés</Title>

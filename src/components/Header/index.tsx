@@ -8,7 +8,6 @@ import {
   ImageLogo,
   Location,
 } from './styles'
-import Logo from 'images/logo.svg'
 
 import { useCart } from '../../hooks/useCart'
 
@@ -18,7 +17,7 @@ export const Header = () => {
   return (
     <ContainerHeader>
       <NavLink to="/">
-        <ImageLogo src={Logo} alt="" />
+        <ImageLogo src="images/logo.svg" alt="" />
       </NavLink>
       <ContentInfo>
         <Location>

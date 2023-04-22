@@ -8,7 +8,6 @@ import {
 } from './styles'
 import { Title } from '../Home/styles'
 import { Label } from '../Checkout/styles'
-import illustration from 'images/illustration.png'
 
 import { useCart } from '../../hooks/useCart'
 
@@ -60,7 +59,7 @@ export const Success = () => {
           </InfoOrder>
         </ContentOrder>
         <img
-          src={illustration}
+          src="images/illustration.png"
           alt="Motocicleta ir ao endereço do pedido para realizar a entrega"
         />
       </ContentSuccess>
