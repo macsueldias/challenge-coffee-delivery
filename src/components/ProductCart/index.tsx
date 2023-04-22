@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Minus, Plus, Trash } from '@phosphor-icons/react'
+
 import { OrderTotal } from '../Product/styles'
 import { ActionOrder, ContainerProductCart, Separator } from './styles'
-import { useCart } from '../../hooks/useCart'
 import { Button } from '../../pages/Checkout/styles'
-import { useState } from 'react'
+
+import { useCart } from '../../hooks/useCart'
 
 interface CategoryProps {
   id: string
@@ -16,7 +18,7 @@ interface ProductProps {
   image: string
   description: string
   categories: CategoryProps[]
-  price: string
+  price: number
   amount: number
 }
 
@@ -36,10 +38,7 @@ export const ProductCart = (itemprod: ProductProps) => {
 
   return (
     <ContainerProductCart>
-      <img
-        src={`../src/assets/coffees/${itemprod.image}`}
-        alt={itemprod.name}
-      />
+      <img src={`coffees/${itemprod.image}`} alt={itemprod.name} />
       <div>
         <p>{itemprod.name}</p>
         <ActionOrder>
@@ -52,6 +51,7 @@ export const ProductCart = (itemprod: ProductProps) => {
               <Plus size={16} weight="regular" color="#4B2995" />
             </button>
           </OrderTotal>
+
           <Button
             type="button"
             onClick={() => removeProductCart(itemprod.id, 0)}
@@ -61,6 +61,7 @@ export const ProductCart = (itemprod: ProductProps) => {
           </Button>
         </ActionOrder>
       </div>
+
       <p>
         R$ <span>{(Number(itemprod.price) * amount).toFixed(2)}</span>
       </p>

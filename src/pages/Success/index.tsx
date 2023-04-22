@@ -1,13 +1,15 @@
 import { MapPinLine, Money, Timer } from '@phosphor-icons/react'
-import { Title } from '../Home/styles'
-import { Label } from '../Checkout/styles'
-import illustration from '../../assets/Illustration.png'
+
 import {
   ContainerSuccess,
   ContentOrder,
   ContentSuccess,
   InfoOrder,
 } from './styles'
+import { Title } from '../Home/styles'
+import { Label } from '../Checkout/styles'
+import illustration from '../../assets/illustration.png'
+
 import { useCart } from '../../hooks/useCart'
 
 export const Success = () => {
@@ -33,6 +35,7 @@ export const Success = () => {
                 </span>
               </Label>
             </div>
+
             <div>
               <Timer color="#DBAC2C" size={18} weight="fill" />
               <Label>
@@ -43,6 +46,7 @@ export const Success = () => {
                 </span>
               </Label>
             </div>
+
             <div>
               <Money color="#C47F17" size={18} weight="fill" />
               <Label>

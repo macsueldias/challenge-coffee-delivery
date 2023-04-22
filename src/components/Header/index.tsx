@@ -1,3 +1,6 @@
+import { NavLink } from 'react-router-dom'
+import { MapPin, ShoppingCart } from '@phosphor-icons/react'
+
 import {
   Cart,
   ContainerHeader,
@@ -5,10 +8,9 @@ import {
   ImageLogo,
   Location,
 } from './styles'
-import Logo from '../../assets/Logo.svg'
-import { MapPin, ShoppingCart } from '@phosphor-icons/react'
+import Logo from '../../assets/logo.svg'
+
 import { useCart } from '../../hooks/useCart'
-import { NavLink } from 'react-router-dom'
 
 export const Header = () => {
   const { totalCart } = useCart()

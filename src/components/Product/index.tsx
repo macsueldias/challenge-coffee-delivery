@@ -24,7 +24,7 @@ interface ProductProps {
   image: string
   description: string
   categories: CategoryProps[]
-  price: string
+  price: number
   amount: number
 }
 
@@ -38,36 +38,41 @@ export const Product = (product: ProductProps) => {
   }
 
   function handleDecrement() {
-    setAmount(amount - 1)
+    if (amount > 0) {
+      setAmount(amount - 1)
+    }
   }
-
-  const productInCart = cart.find((item) => item.id === product.id)
 
   return (
     <ItemProduct>
       <ImageProduct>
         <img src={`coffees/${product.image}`} alt={product.name} />
       </ImageProduct>
+
       <CategoryProduct>
         {product.categories.map((category) => {
           return <span key={category.id}>{category.title}</span>
         })}
       </CategoryProduct>
+
       <NameProduct>{product.name}</NameProduct>
       <DescriptionProduct>{product.description}</DescriptionProduct>
+
       <FooterProduct>
         <ValueProduct>
           R$ <span>{product.price}</span>
         </ValueProduct>
+
         <OrderTotal>
           <button onClick={handleDecrement}>
             <Minus size={16} weight="bold" color="#4B2995" />
           </button>
-          <span>{productInCart ? productInCart.amount : amount}</span>
+          <span>{amount}</span>
           <button onClick={handleIncrement}>
             <Plus size={16} weight="bold" color="#4B2995" />
           </button>
         </OrderTotal>
+
         <OrderClosing onClick={() => addProductCart(product, amount)}>
           <ShoppingCart size={16} weight="fill" />
         </OrderClosing>

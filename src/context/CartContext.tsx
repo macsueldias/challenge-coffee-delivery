@@ -1,5 +1,11 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { OrderProductsCart } from '../utils/orderProductsCart'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
+import {
+  addProductCartReducer,
+  decrementAmountCartReducer,
+  incrementProductCartReducer,
+  removeProductCartReducer,
+} from '../reducers/cart/actions'
+import { cartReducer } from '../reducers/cart/reducer'
 
 interface CategoryProps {
   id: string
@@ -12,7 +18,7 @@ interface ProductProps {
   image: string
   description: string
   categories: CategoryProps[]
-  price: string
+  price: number
   amount: number
 }
 
@@ -22,7 +28,7 @@ interface AmountCartProps {
 }
 
 interface OrderProps {
-  cep: string
+  cep: number
   street: string
   complement: string
   neighborhood: string
@@ -49,21 +55,27 @@ interface CardProviderProps {
 export const CartContext = createContext({} as ProductContextProps)
 
 export function CartProvider({ children }: CardProviderProps) {
-  const [cart, setCart] = useState<ProductProps[]>([])
-  const [totalCart, setTotalCart] = useState<AmountCartProps>({
-    amount: 0,
-    value: 0,
+  const [cart, dispatch] = useReducer(cartReducer, [], () => {
+    const storedStateAsJSON = localStorage.getItem(
+      '@coffed-delivery:cart-1.0.0',
+    )
+
+    if (storedStateAsJSON) {
+      return JSON.parse(storedStateAsJSON)
+    }
   })
-  const [order, setOrder] = useState<OrderProps>({
-    cep: '',
-    street: '',
-    complement: '',
-    neighborhood: '',
-    city: '',
-    uf: '',
-    number: 0,
-    payment: '',
-  })
+
+  useEffect(() => {
+    const stateJson = JSON.stringify(cart)
+
+    localStorage.setItem('@coffed-delivery:cart-1.0.0', stateJson)
+  }, [cart])
+
+  const [totalCart, setTotalCart] = useState<AmountCartProps>(
+    {} as AmountCartProps,
+  )
+
+  const [order, setOrder] = useState<OrderProps>({} as OrderProps)
 
   const EntryOrder = async (order: OrderProps) => {
     try {
@@ -76,14 +88,21 @@ export function CartProvider({ children }: CardProviderProps) {
 
   const addProductCart = (product: ProductProps, amount: number) => {
     const listOfOtherProducts = cart.filter((item) => item.id !== product.id)
-    if (cart.includes(product) || amount !== 1) {
-      setCart(
-        [...listOfOtherProducts, { ...product, amount }].sort(
-          OrderProductsCart,
-        ),
+    const containProductInCart = cart.find((item) => item.id === product.id)
+    let productCurrent = product
+    if (containProductInCart) {
+      productCurrent = cart.find((item) => item.id === product.id)
+    }
+
+    if (containProductInCart || amount !== 1) {
+      dispatch(
+        incrementProductCartReducer([
+          ...listOfOtherProducts,
+          { ...product, amount },
+        ]),
       )
     } else {
-      setCart((state) => [...state, product].sort(OrderProductsCart))
+      dispatch(addProductCartReducer({ ...productCurrent, amount }))
     }
   }
 
@@ -91,15 +110,18 @@ export function CartProvider({ children }: CardProviderProps) {
     const listOfOtherProducts = cart.filter((item) => item.id !== id)
     const product = cart.filter((item) => item.id === id)
     if (amount > 0) {
-      setCart(
-        [...listOfOtherProducts, { ...product[0], amount }].sort(
-          OrderProductsCart,
-        ),
+      dispatch(
+        decrementAmountCartReducer([
+          ...listOfOtherProducts,
+          { ...product[0], amount },
+        ]),
       )
     } else {
-      setCart(cart.filter((product) => product.id !== id))
+      dispatch(removeProductCartReducer([...listOfOtherProducts]))
     }
   }
+
+  console.log(cart)
 
   const delivery = () => {
     if (totalCart.value === 0) {

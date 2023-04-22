@@ -9,7 +9,7 @@ interface ProductProps {
   image: string
   description: string
   categories: CategoryProps[]
-  price: string
+  price: number
   amount: number
 }
 

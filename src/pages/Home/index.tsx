@@ -1,4 +1,11 @@
 import {
+  ShoppingCart,
+  ClockCountdown,
+  Package,
+  Coffee,
+} from '@phosphor-icons/react'
+
+import {
   ContainerBanner,
   ContainerProducts,
   DescriptionServices,
@@ -9,16 +16,10 @@ import {
   Title,
   TitleMain,
 } from './styles'
-import {
-  ShoppingCart,
-  ClockCountdown,
-  Package,
-  Coffee,
-} from '@phosphor-icons/react'
 
 import ilustration from '../../assets/Ilustration-coffee.svg'
-
 import { data } from '../../data/products'
+
 import { Product } from '../../components/Product'
 
 export const Home = () => {
@@ -33,6 +34,7 @@ export const Home = () => {
               qualquer hora
             </span>
           </TitleMain>
+
           <DescriptionServices>
             <ItemService serviceColor="yellowDark">
               <span>
@@ -60,6 +62,7 @@ export const Home = () => {
             </ItemService>
           </DescriptionServices>
         </InfoHeader>
+
         <IlustrationProduct src={ilustration} alt="" />
       </ContainerBanner>
       <ContainerProducts>
